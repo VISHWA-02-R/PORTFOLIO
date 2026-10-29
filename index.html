@@ -1,0 +1,533 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VISHWA R | Software Developer</title>
+<meta name="description" content="Portfolio of VISHWA R, a Computer Science student interested in web development and quantum computing.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  /* Layout: classic portfolio. Sticky nav, then each section is a label column beside its content. */
+  :root {
+    --bg: #eef1f6;
+    --surface: #f9fafd;
+    --fg: #0e1726;
+    --muted: #55617a;
+    --line: #cdd4e1;
+    --accent: #2340d4;
+    --accent-ink: #ffffff;
+    --font-display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+    --font-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0a101c;
+      --surface: #111a2b;
+      --fg: #e6ebf5;
+      --muted: #93a0ba;
+      --line: #243149;
+      --accent: #8aa4ff;
+      --accent-ink: #0a101c;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0a101c;
+    --surface: #111a2b;
+    --fg: #e6ebf5;
+    --muted: #93a0ba;
+    --line: #243149;
+    --accent: #8aa4ff;
+    --accent-ink: #0a101c;
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.65;
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+  }
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0 0 auto;
+    height: env(safe-area-inset-top, 0px);
+    z-index: 30;
+    background: var(--bg);
+  }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+  .wrap {
+    width: 100%;
+    max-width: 1080px;
+    margin-inline: auto;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+  }
+
+  /* Header */
+  header.top {
+    position: sticky;
+    top: env(safe-area-inset-top, 0px);
+    z-index: 20;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+  }
+  .top .wrap { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 28px; padding-block: 12px; }
+  .brand {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.15rem;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+    margin-right: auto;
+  }
+  .brand span { color: var(--accent); }
+  nav.links { display: flex; gap: 4px 22px; flex-wrap: wrap; }
+  nav.links a {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 4px 0;
+    border-bottom: 2px solid transparent;
+  }
+  nav.links a:hover { color: var(--fg); border-bottom-color: var(--accent); }
+
+  /* Hero */
+  .hero { padding-block: clamp(48px, 9vw, 112px) clamp(48px, 8vw, 96px); }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: clamp(24px, 6vw, 80px);
+    align-items: center;
+  }
+  .role {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 16px;
+  }
+  h1 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(3rem, 9vw, 6rem);
+    line-height: 0.96;
+    letter-spacing: -0.035em;
+    margin: 0 0 24px;
+    text-wrap: balance;
+  }
+  .lede { color: var(--muted); font-size: 1.08rem; max-width: 56ch; margin: 0 0 30px; }
+  .cta-row { display: flex; flex-wrap: wrap; gap: 10px; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    font-weight: 600;
+    font-size: 0.92rem;
+    text-decoration: none;
+    padding: 11px 20px;
+    border-radius: 4px;
+    border: 1px solid var(--fg);
+    color: var(--fg);
+    background: transparent;
+  }
+  .btn:hover { border-color: var(--accent); color: var(--accent); }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+  .btn.primary:hover { color: var(--accent-ink); filter: brightness(1.08); }
+  .monogram {
+    width: clamp(150px, 22vw, 260px);
+    aspect-ratio: 1 / 1;
+    max-width: 100%;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    border-radius: 6px;
+    display: grid;
+    place-items: center;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(3.6rem, 8vw, 6.4rem);
+    letter-spacing: -0.04em;
+    color: var(--accent);
+  }
+
+  /* Sections */
+  section.block {
+    padding-block: clamp(44px, 6vw, 80px);
+    border-top: 1px solid var(--line);
+    scroll-margin-top: 64px;
+  }
+  .split { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 20px clamp(24px, 5vw, 64px); }
+  h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.5rem;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin: 0;
+  }
+  .content { min-width: 0; }
+  h3 { font-family: var(--font-display); font-weight: 700; letter-spacing: -0.015em; margin: 0; }
+
+  /* About */
+  .content p.body { margin: 0 0 16px; max-width: 64ch; }
+  .content p.body:last-child { margin-bottom: 0; }
+
+  /* Skills */
+  .skill-row {
+    display: grid;
+    grid-template-columns: minmax(0, 180px) minmax(0, 1fr);
+    gap: 8px 24px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+    align-items: baseline;
+  }
+  .skill-row:first-child { padding-top: 0; }
+  .skill-row h3 { font-size: 0.98rem; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+  .chips li {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    padding: 4px 10px;
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    background: var(--surface);
+  }
+
+  /* Projects */
+  .projects { display: grid; gap: 20px; }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: clamp(20px, 3vw, 30px);
+    min-width: 0;
+  }
+  .card .sub {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 8px;
+  }
+  .card h3 { font-size: clamp(1.3rem, 2.6vw, 1.65rem); line-height: 1.2; margin-bottom: 12px; }
+  .card ul.pts { margin: 0 0 16px; padding-left: 1.1em; display: grid; gap: 8px; color: var(--muted); }
+  .card ul.pts li::marker { color: var(--accent); }
+  .card .chips { margin-top: 4px; }
+  .proj-link {
+    display: inline-block;
+    margin-top: 16px;
+    font-weight: 600;
+    font-size: 0.92rem;
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  .proj-link:hover { filter: brightness(1.15); }
+
+  /* Education */
+  .timeline { list-style: none; margin: 0; padding: 0; border-left: 1px solid var(--line); }
+  .timeline li { position: relative; padding: 0 0 26px 22px; min-width: 0; }
+  .timeline li:last-child { padding-bottom: 0; }
+  .timeline li::before {
+    content: "";
+    position: absolute;
+    left: -5px; top: 9px;
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--accent);
+  }
+  .timeline .yr { font-family: var(--font-mono); font-size: 0.78rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .timeline strong { display: block; font-family: var(--font-display); font-size: 1.1rem; line-height: 1.3; }
+  .timeline .where { color: var(--muted); font-size: 0.93rem; }
+  .timeline .score { font-family: var(--font-mono); font-size: 0.85rem; color: var(--accent); font-variant-numeric: tabular-nums; }
+
+  .plain-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+  .plain-list li { padding: 12px 0; border-bottom: 1px solid var(--line); min-width: 0; overflow-wrap: anywhere; }
+  .plain-list small { display: block; color: var(--muted); font-size: 0.85rem; }
+
+  /* Contact */
+  .contact-list { border-top: 1px solid var(--line); }
+  .contact-row {
+    display: grid;
+    grid-template-columns: 100px minmax(0, 1fr) auto;
+    gap: 8px 20px;
+    align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .contact-row .k { font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); }
+  .contact-row .v { font-weight: 500; overflow-wrap: anywhere; min-width: 0; }
+  .contact-row a.v { text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 4px; }
+  .contact-row a.v:hover { text-decoration-color: var(--accent); color: var(--accent); }
+  .copy {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    background: transparent;
+    color: var(--fg);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 5px 11px;
+    cursor: pointer;
+    min-width: 66px;
+  }
+  .copy:hover { border-color: var(--accent); color: var(--accent); }
+
+  footer.foot { border-top: 1px solid var(--line); padding-block: 26px; font-size: 0.85rem; color: var(--muted); }
+  footer.foot .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; }
+
+  @media (max-width: 800px) {
+    .split { grid-template-columns: minmax(0, 1fr); }
+    .hero-grid { grid-template-columns: minmax(0, 1fr); }
+    .monogram { order: -1; width: 120px; font-size: 3rem; }
+  }
+  @media (max-width: 640px) {
+    .skill-row { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+    .contact-row { grid-template-columns: minmax(0, 1fr) auto; }
+    .contact-row .k { grid-column: 1 / -1; }
+    nav.links { order: 3; width: 100%; overflow-x: auto; flex-wrap: nowrap; white-space: nowrap; }
+    .btn { flex: 1 1 auto; justify-content: center; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="VISHWA R, back to top">VISHWA<span> R</span></a>
+    <nav class="links" aria-label="Sections">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#education">Education</a>
+      <a href="#achievements">Achievements</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <p class="role">Software Developer</p>
+          <h1>VISHWA R</h1>
+          <p class="lede">Computer Science and Engineering student, especially interested in web development and quantum computing. Based in Chennai, Tamil Nadu.</p>
+          <div class="cta-row">
+            <a class="btn primary" href="#projects">View projects</a>
+            <a class="btn" href="VISHWA_R_Resume.pdf" download>Download resume</a>
+            <a class="btn" href="#contact">Contact me</a>
+            <a class="btn" href="https://github.com/VISHWA-02-R" target="_blank" rel="noopener">GitHub</a>
+            <a class="btn" href="https://linkedin.com/in/vishwa--r" target="_blank" rel="noopener">LinkedIn</a>
+          </div>
+        </div>
+        <div class="monogram" aria-hidden="true">VR</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="about">
+    <div class="wrap split">
+      <h2>About</h2>
+      <div class="content">
+        <p class="body">I am a Computer Science and Engineering student at Rajalakshmi Institute of Technology, Anna University. I am a software developer at heart, especially interested in web development and quantum computing, with a wider interest in problem solving and emerging technologies.</p>
+        <p class="body">I have a strong foundation in programming, object-oriented programming, web technologies, databases and core computer science concepts. I use it to build practical, secure software solutions.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="skills">
+    <div class="wrap split">
+      <h2>Skills</h2>
+      <div class="content">
+        <div class="skill-row"><h3>Programming</h3><ul class="chips"><li>C</li><li>Python</li><li>Java</li><li>OOP</li></ul></div>
+        <div class="skill-row"><h3>Web technologies</h3><ul class="chips"><li>HTML</li><li>CSS</li><li>JavaScript</li></ul></div>
+        <div class="skill-row"><h3>Databases</h3><ul class="chips"><li>SQL</li><li>MongoDB</li></ul></div>
+        <div class="skill-row"><h3>Quantum computing</h3><ul class="chips"><li>Qiskit</li></ul></div>
+        <div class="skill-row"><h3>Tools</h3><ul class="chips"><li>Git</li><li>GitHub</li><li>Antigravity</li></ul></div>
+        <div class="skill-row"><h3>Core concepts</h3><ul class="chips"><li>DBMS</li><li>Operating Systems</li><li>Computer Networks</li></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="projects">
+    <div class="wrap split">
+      <h2>Projects</h2>
+      <div class="content projects">
+        <article class="card">
+          <p class="sub">Quantum-safe file transfer</p>
+          <h3>QuiskitX</h3>
+          <ul class="pts">
+            <li>Secure file-transfer project built on quantum computing concepts and Qiskit, focused on protecting files during transmission.</li>
+            <li>Explores quantum-based secure communication techniques within a practical file-transfer workflow.</li>
+          </ul>
+          <ul class="chips"><li>Qiskit</li><li>Quantum computing</li></ul>
+        </article>
+        <article class="card">
+          <p class="sub">Salon slot booking</p>
+          <h3>The Gentlemen's Chair</h3>
+          <ul class="pts">
+            <li>Web application for booking salon appointments. Customers reserve a 40-minute slot in advance, assigned first come, first served.</li>
+            <li>Customers pick a day and time slot, choose a service class and service, and see the total before they book.</li>
+            <li>Includes a separate owner login for managing the salon side.</li>
+          </ul>
+          <ul class="chips"><li>Web development</li></ul>
+          <a class="proj-link" href="https://first-come-fresh-cuts-host.lovable.app/" target="_blank" rel="noopener">Visit live site ↗</a>
+        </article>
+        <article class="card">
+          <p class="sub">Blood &amp; food donation app</p>
+          <h3>StuBlood</h3>
+          <ul class="pts">
+            <li>Application concept that supports blood and food donation by connecting users with relevant donation information.</li>
+            <li>A simple, user-oriented approach to donation discovery and support.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <p class="sub">Destination discovery</p>
+          <h3>Smart Tourism Guide System</h3>
+          <ul class="pts">
+            <li>Smart tourism solution for discovering tourism-related information and exploring destinations.</li>
+            <li>Presents useful destination information through an accessible system.</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="education">
+    <div class="wrap split">
+      <h2>Education</h2>
+      <div class="content">
+        <ol class="timeline">
+          <li>
+            <span class="yr">2024 – 2028</span>
+            <strong>B.E. Computer Science and Engineering</strong>
+            <span class="where">Rajalakshmi Institute of Technology, Anna University</span><br>
+            <span class="score">CGPA 7.92 / 10</span>
+          </li>
+          <li>
+            <span class="yr">2023 – 2024</span>
+            <strong>HSC</strong>
+            <span class="where">AKT Academy Matric Higher Secondary School, Kallakurichi</span><br>
+            <span class="score">91%</span>
+          </li>
+          <li>
+            <span class="yr">2022 – 2023</span>
+            <strong>SSLC</strong>
+            <span class="where">AKT Academy Matric Higher Secondary School, Kallakurichi</span><br>
+            <span class="score">91%</span>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="achievements">
+    <div class="wrap split">
+      <h2>Achievements &amp; certifications</h2>
+      <div class="content">
+        <ul class="plain-list" style="margin-bottom:32px">
+          <li>Selected in the internal selection round of Smart India Hackathon (SIH)<small>2025 and 2026</small></li>
+          <li>Selected in the internal selection round of a Quantum Hackathon and participated in it</li>
+        </ul>
+        <ul class="plain-list">
+          <li>Java Training<small>Certificate of Completion</small></li>
+          <li>AI Training, Infosys<small>Certificate of Completion</small></li>
+          <li>Python 3.4.3 Training<small>Certificate of Completion</small></li>
+          <li>MongoDB Basics for Students<small>Certificate of Completion</small></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="contact">
+    <div class="wrap split">
+      <h2>Contact</h2>
+      <div class="content">
+        <div class="contact-list">
+          <div class="contact-row">
+            <span class="k">Email</span>
+            <span class="v" id="email">vishwa30.10.2006@gmail.com</span>
+            <button class="copy" type="button" data-target="email">Copy</button>
+          </div>
+          <div class="contact-row">
+            <span class="k">Phone</span>
+            <span class="v" id="phone">6374192366</span>
+            <button class="copy" type="button" data-target="phone">Copy</button>
+          </div>
+          <div class="contact-row">
+            <span class="k">Resume</span>
+            <a class="v" href="VISHWA_R_Resume.pdf" download>Download resume (PDF)</a>
+            <span></span>
+          </div>
+          <div class="contact-row">
+            <span class="k">LinkedIn</span>
+            <a class="v" href="https://linkedin.com/in/vishwa--r" target="_blank" rel="noopener">linkedin.com/in/vishwa--r</a>
+            <span></span>
+          </div>
+          <div class="contact-row">
+            <span class="k">GitHub</span>
+            <a class="v" href="https://github.com/VISHWA-02-R" target="_blank" rel="noopener">github.com/VISHWA-02-R</a>
+            <span></span>
+          </div>
+          <div class="contact-row">
+            <span class="k">Location</span>
+            <span class="v">Chennai, Tamil Nadu</span>
+            <span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <span>© 2026 VISHWA R</span>
+    <a href="#top">Back to top ↑</a>
+  </div>
+</footer>
+
+<script>
+(function () {
+  function selectNode(node) {
+    var r = document.createRange();
+    r.selectNodeContents(node);
+    var s = window.getSelection();
+    s.removeAllRanges();
+    s.addRange(r);
+  }
+  document.querySelectorAll('.copy').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var node = document.getElementById(b.getAttribute('data-target'));
+      var text = node.textContent.trim();
+      var done = function (ok) {
+        b.textContent = ok ? 'Copied' : 'Selected';
+        setTimeout(function () { b.textContent = 'Copy'; }, 1600);
+      };
+      try {
+        navigator.clipboard.writeText(text).then(function () { done(true); }, function () { selectNode(node); done(false); });
+      } catch (e) { selectNode(node); done(false); }
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
